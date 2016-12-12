@@ -37,19 +37,19 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+        // var parentElement = document.getElementById(id);
+        // var listeningElement = parentElement.querySelector('.listening');
+        // var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        // listeningElement.setAttribute('style', 'display:none;');
+        // receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
         //alert('Hey man');
         setTimeout(function() {
-            // var url = 'https://ddyq888.com'
-            var url = 'http://192.168.1.63:8080'
-            // window.location = url;
+            var url = 'https://ddyq888.com'
+            // var url = 'http://192.168.1.63:8080'
+            window.location = url;
             // alert(window.open)
             // window.open(url)
             // navigator.geolocation.getCurrentPosition(function(x, y) {alert(x, y)})
