@@ -51,12 +51,10 @@
         //alert('Hey man');
         setTimeout(function() {
             // var url = 'https://ddyq888.com/'
-            var url = 'http://192.168.1.63:8080/'
-            var currentUrl = window.location;
-            var nextUrl = url + '?referrer=' + encodeURIComponent(currentUrl);
-            console.log(nextUrl);
-            alert(nextUrl);
-            window.location = nextUrl;
+            var url = 'http://192.168.1.61:8080/'
+            // var url = prompt('网址，不需要http://，我会加');
+            // url = 'http://' + url;
+            window.location = url;
 
             // alert(window.open)
             // window.open(url)
