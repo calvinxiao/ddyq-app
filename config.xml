@@ -110,7 +110,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-navigation href="https://ddyq888.com/*" />
-    <allow-navigation href="http://192.168.1.63:8080/*" />
+    <allow-navigation href="http://192.168.1.61:8080/*" />
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
