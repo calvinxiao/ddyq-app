@@ -6,12 +6,12 @@
     <feature name="Device">
         <param name="browser-package" value="Device" />
     </feature>
-    <name>ddyq</name>
+    <name>点点有钱</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        点点有钱APP
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="xiaojiawei@yeezon.com" href="https://ddyq888.com">
+        Yeezon Team
     </author>
     <content src="index.html" />
     <access allows-arbitrary-loads-in-media="true" allows-arbitrary-loads-in-web-content="true" allows-local-networking="true" origin="*" />
@@ -25,4 +25,5 @@
     <allow-navigation href="http://192.168.1.63:8080/*" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="14" />
+    <preference name="OverrideUserAgent" value="DDYQ Android 1.0.0" />
 </widget>

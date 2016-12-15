@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
+ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -45,11 +45,19 @@ var app = {
         // receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+        alert(navigator.userAgent);
+        // alert(window.location);
+        // alert(window.plugins.socialsharing.share);
         //alert('Hey man');
         setTimeout(function() {
-            var url = 'https://ddyq888.com'
-            // var url = 'http://192.168.1.63:8080'
-            window.location = url;
+            // var url = 'https://ddyq888.com/'
+            var url = 'http://192.168.1.63:8080/'
+            var currentUrl = window.location;
+            var nextUrl = url + '?referrer=' + encodeURIComponent(currentUrl);
+            console.log(nextUrl);
+            alert(nextUrl);
+            window.location = nextUrl;
+
             // alert(window.open)
             // window.open(url)
             // navigator.geolocation.getCurrentPosition(function(x, y) {alert(x, y)})
@@ -58,6 +66,28 @@ var app = {
             
             //navigator.app.loadUrl('https://ddyq888.com', {openExternal: false})
             // confirm('yes or not')
-        }, 1000)
+        }, 1000);
+
+        // share
+        document.getElementById('btnShare').addEventListener('click', function() {
+            var options = {
+                message: null, // not supported on some apps (Facebook, Instagram) 
+                subject: null, // fi. for email 
+                files: null, // an array of filenames either locally or remotely 
+                url: 'https://ddyq888.com',
+                chooserTitle: '点点有钱' // Android only, you can override the default share sheet title 
+            }
+
+            var onSuccess = function(result) {
+              console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true 
+              console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false) 
+            }
+
+            var onError = function(msg) {
+              console.log("Sharing failed with message: " + msg);
+            }
+
+            window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+        })
     }
 };
