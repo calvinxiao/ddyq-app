@@ -124,7 +124,7 @@
     <script type="text/javascript" src="js/index.js"></script>
     -->
     <script type="text/javascript">
-        // app.initialize();
+         // app.initialize();
         var store = {
         localStoreSupport: function () {
             try {
@@ -193,18 +193,19 @@
         }
     };
 
-    // (function() {
-    //     var visitedKey = 'visited';
-    //     var isVisited = store.get(visitedKey);
-    //     if (isVisited) {
-    //         alert(visitedKey + ' go to new page 啦');
-    //         return;
-    //     }
+    (function() {
+        var visitedKey = 'visited';
+        var isVisited = store.get(visitedKey);
+        if (isVisited) {
+            // alert(visitedKey + ' go to new page 啦');
+            gotoDDYQ();
+            return;
+        }
 
-    //     store.set(visitedKey, true, 1024);
-    // })();
+        store.set(visitedKey, true, 1024);
+    })();
+
     $(function () {
-        // alert('hello')
         var $owl = $('.owl-carousel');
         $owl.owlCarousel({
             items: 1,
@@ -226,7 +227,7 @@
         });
         var $goButton = $('.go-button');
         $owl.on('changed.owl.carousel', function(event) {
-            let page = event.page;
+            var page = event.page;
             if (page && page.index === page.count - 1) { // last one, animate the button
                 setTimeout(function() {
 //                    alert('Hello min');
@@ -237,15 +238,19 @@
 
             $goButton.removeClass('bounceInUp animated').addClass('hide');
             // else hide it
-
         });
+
         $goButton.on('click', function() {
-            var url = 'https://ddyq888.com/'
+            gotoDDYQ();
+        })
+    })
+
+    function gotoDDYQ() {
+        var url = 'https://ddyq888.com/'
             // var url = 'http://192.168.1.61:8080'
             // var url = 'http://ad-web-app-test.ibanquan.com/'
             window.location = url;
-        })
-    })
+    }
     </script>
 </body>
 
