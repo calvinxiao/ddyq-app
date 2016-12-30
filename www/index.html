@@ -38,25 +38,213 @@
     -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/index.css" /> -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <SCRIPT TYPE="text/javascript" src="js/owl.carousel.min.js"></SCRIPT>
     <title>点点有钱</title>
+
+    <style type="text/css">
+        html, body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            position: relative;
+        }
+
+        .owl-carousel .item, .owl-carousel img {
+            width: 320px;
+        }
+
+        .owl-dots {
+            position: fixed;
+            bottom: 26px;
+            width: 200px;
+            left: 50%;
+            margin-left: -100px;
+            z-index: 999;
+        }
+
+        .go-button {
+            display: block;
+            position: fixed;
+            bottom: 112px;
+            width: 200px;
+            left: 50%;
+            margin-left: -100px;
+            z-index: 999;
+        }
+
+        .go-button img {
+            width: 100%;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .owl-theme .owl-dots .owl-dot span {
+            background: #bfbfbf;
+        }
+
+        .owl-theme .owl-dots .owl-dot.active span {
+            background: #f8913b;
+        }
+
+    </style>
 </head>
 
 <body>
-    <div class="app">
-        <!-- <h1>Hello 点点有钱</h1>
+    <!-- <div class="app">
+        <h1>Hello 点点有钱</h1>
         <div id="deviceready" class="blink">
             <p class="event listening">Connecting to Device</p>
             <p class="event received">Device is Ready</p>
-        </div> -->
-        <div>
-            <!-- <button id='btnShare'>Share</button> -->
         </div>
-    </div>
+        <div>
+            <button id='btnShare'>Share</button>
+        </div>
+    </div> -->
+
+<div class="owl-carousel owl-theme">
+    <img class="item" src="img/1.png" alt="">
+    <img class="item" src="img/2.png" alt="">
+    <img class="item" src="img/3.png" alt="">
+    <img class="item" src="img/4.png" alt="">
+</div>
+<a class="go-button hide" href="javascript:void(0)">
+    <img src="img/go.png" alt="">
+</a>
+
+
+    <!--
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    -->
     <script type="text/javascript">
-        app.initialize();
+        // app.initialize();
+        var store = {
+        localStoreSupport: function () {
+            try {
+                return 'localStorage' in window && window['localStorage'] !== null;
+            } catch (e) {
+                return false;
+            }
+        },
+        set: function (name, value, days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            }
+            else {
+                var expires = "";
+            }
+            if (this.localStoreSupport()) {
+                localStorage.setItem(name, value);
+            }
+            else {
+                document.cookie = name + "=" + value + expires + "; path=/";
+            }
+        },
+        get: function (name) {
+            if (this.localStoreSupport()) {
+                var ret = localStorage.getItem(name);
+                //console.log(typeof ret);
+                switch (ret) {
+                    case 'true':
+                        return true;
+                    case 'false':
+                        return false;
+                    default:
+                        return ret;
+                }
+            }
+            else {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) {
+                        ret = c.substring(nameEQ.length, c.length);
+                        switch (ret) {
+                            case 'true':
+                                return true;
+                            case 'false':
+                                return false;
+                            default:
+                                return ret;
+                        }
+                    }
+                }
+                return null;
+            }
+        },
+        del: function (name) {
+            if (this.localStoreSupport()) {
+                localStorage.removeItem(name);
+            }
+            else {
+                this.set(name, "", -1);
+            }
+        }
+    };
+
+    (function() {
+        var visitedKey = 'visited';
+        var isVisited = store.get(visitedKey);
+        if (isVisited) {
+            alert(visitedKey + ' go to new page 啦');
+            return;
+        }
+
+        store.set(visitedKey, true, 1024);
+    })();
+    $(function () {
+        // alert('hello')
+        var $owl = $('.owl-carousel');
+        $owl.owlCarousel({
+            items: 1,
+            center: true,
+//            autoWidth: true,
+            dots: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+
+        });
+        var $goButton = $('.go-button');
+        $owl.on('changed.owl.carousel', function(event) {
+            let page = event.page;
+            if (page && page.index === page.count - 1) { // last one, animate the button
+                setTimeout(function() {
+//                    alert('Hello min');
+                    $goButton.removeClass('hide').addClass('bounceInUp animated');
+                }, 250);
+                return;
+            }
+
+            $goButton.removeClass('bounceInUp animated').addClass('hide');
+            // else hide it
+
+        });
+        $goButton.on('click', function() {
+            var url = 'https://ddyq888.com/'
+            // var url = 'http://192.168.1.61:8080'
+            // var url = 'http://ad-web-app-test.ibanquan.com/'
+        })
+    })
     </script>
 </body>
 
