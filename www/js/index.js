@@ -45,7 +45,7 @@
         // receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-        alert(navigator.userAgent);
+        //alert(navigator.userAgent);
         // alert(window.location);
         // alert(window.plugins.socialsharing.share);
         //alert('Hey man');
@@ -69,25 +69,5 @@
         }, 1000);
 
         // share
-        document.getElementById('btnShare').addEventListener('click', function() {
-            var options = {
-                message: null, // not supported on some apps (Facebook, Instagram) 
-                subject: null, // fi. for email 
-                files: null, // an array of filenames either locally or remotely 
-                url: 'https://ddyq888.com',
-                chooserTitle: '点点有钱' // Android only, you can override the default share sheet title 
             }
-
-            var onSuccess = function(result) {
-              console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true 
-              console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false) 
-            }
-
-            var onError = function(msg) {
-              console.log("Sharing failed with message: " + msg);
-            }
-
-            window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
-        })
-    }
 };
