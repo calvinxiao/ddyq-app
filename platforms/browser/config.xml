@@ -6,7 +6,7 @@
     <feature name="Device">
         <param name="browser-package" value="Device" />
     </feature>
-    <name>点点有钱2</name>
+    <name>点点有钱</name>
     <description>
         点点有钱APP
     </description>

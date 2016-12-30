@@ -65,7 +65,7 @@
     <feature name="SocialSharing">
         <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
     </feature>
-    <name>点点有钱2</name>
+    <name>点点有钱</name>
     <description>
         点点有钱APP
     </description>

@@ -119,8 +119,8 @@
 </a>
 
 
-    <!--
     <script type="text/javascript" src="cordova.js"></script>
+    <!--
     <script type="text/javascript" src="js/index.js"></script>
     -->
     <script type="text/javascript">
@@ -193,16 +193,16 @@
         }
     };
 
-    (function() {
-        var visitedKey = 'visited';
-        var isVisited = store.get(visitedKey);
-        if (isVisited) {
-            alert(visitedKey + ' go to new page 啦');
-            return;
-        }
+    // (function() {
+    //     var visitedKey = 'visited';
+    //     var isVisited = store.get(visitedKey);
+    //     if (isVisited) {
+    //         alert(visitedKey + ' go to new page 啦');
+    //         return;
+    //     }
 
-        store.set(visitedKey, true, 1024);
-    })();
+    //     store.set(visitedKey, true, 1024);
+    // })();
     $(function () {
         // alert('hello')
         var $owl = $('.owl-carousel');
@@ -243,6 +243,7 @@
             var url = 'https://ddyq888.com/'
             // var url = 'http://192.168.1.61:8080'
             // var url = 'http://ad-web-app-test.ibanquan.com/'
+            window.location = url;
         })
     })
     </script>
