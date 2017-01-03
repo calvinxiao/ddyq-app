@@ -70,15 +70,26 @@
         .go-button {
             display: block;
             position: fixed;
-            bottom: 112px;
-            width: 200px;
+            bottom: 13%;
+            width: 67%;
             left: 50%;
-            margin-left: -100px;
+            margin-left: -33%;
             z-index: 999;
+            text-decoration: none;
+            outline: none;
+            -moz-user-focus: ignore;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a.go-button:active {
+            outline: none;
         }
 
         .go-button img {
             width: 100%;
+            outline: none;
+            border: 0;
         }
 
         .hide {
@@ -125,7 +136,7 @@
     -->
     <script type="text/javascript">
          // app.initialize();
-        alert(navigator.userAgent);
+        // alert(navigator.userAgent);
         var store = {
         localStoreSupport: function () {
             try {
@@ -247,10 +258,10 @@
     })
 
     function gotoDDYQ() {
-        var url = 'https://ddyq888.com/'
+        // var url = 'https://ddyq888.com/'
             // var url = 'http://192.168.1.61:8080'
-            // var url = 'http://ad-web-app-test.ibanquan.com/'
-            window.location = url;
+        var url = 'http://ad-web-app-test.ibanquan.com/'
+        window.location = url;
     }
     </script>
 </body>
