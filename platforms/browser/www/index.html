@@ -1,269 +1,198 @@
 <!DOCTYPE html>
-<!--
-    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
-
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" /> -->
-    <!-- Good default declaration:
-    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-        * Enable inline JS: add 'unsafe-inline' to default-src
-        * Enable eval(): add 'unsafe-eval' to default-src
-    * Create your own at http://cspisawesome.com
-    -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
-
-    <!-- <link rel="stylesheet" type="text/css" href="css/index.css" /> -->
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>JPush Phonegap Simple Demo</title>
+    <link href="css/jquery.mobile-1.1.1.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery.js"></script>
-    <SCRIPT TYPE="text/javascript" src="js/owl.carousel.min.js"></SCRIPT>
-    <title>点点有钱</title>
+    <script type="text/javascript" src="js/jquery.mobile-1.1.1.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript">
+        var onDeviceReady = function() {
+            console.log("JPushPlugin:Device ready!");
+            initiateUI();
+        };
 
-    <style type="text/css">
-        html, body {
-            padding: 0;
-            margin: 0;
-            height: 100%;
-            position: relative;
-        }
+        var getRegistrationID = function() {
+            window.plugins.jPushPlugin.getRegistrationID(onGetRegistrationID);
+        };
 
-        .owl-carousel .item, .owl-carousel img {
-            width: 320px;
-        }
+        var onGetRegistrationID = function(data) {
+            try {
+                console.log("JPushPlugin:registrationID is " + data);
 
-        .owl-dots {
-            position: fixed;
-            bottom: 26px;
-            width: 200px;
-            left: 50%;
-            margin-left: -100px;
-            z-index: 999;
-        }
+                if (data.length == 0) {
+                    var t1 = window.setTimeout(getRegistrationID, 1000);
+                }
+                $("#registrationId").html(data);
+            } catch (exception) {
+                console.log(exception);
+            }
+        };
 
-        .go-button {
-            display: block;
-            position: fixed;
-            bottom: 13%;
-            width: 67%;
-            left: 50%;
-            margin-left: -33%;
-            z-index: 999;
-            text-decoration: none;
-            outline: none;
-            -moz-user-focus: ignore;
-            -webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
-            -webkit-tap-highlight-color: transparent;
-        }
+        var onTagsWithAlias = function(event) {
+            try {
+                console.log("onTagsWithAlias");
+                var result = "result code:" + event.resultCode + " ";
+                result += "tags:" + event.tags + " ";
+                result += "alias:" + event.alias + " ";
+                $("#tagAliasResult").html(result);
+            } catch (exception) {
+                console.log(exception)
+            }
+        };
 
-        a.go-button:active {
-            outline: none;
-        }
+        var onOpenNotification = function(event) {
+            try {
+                var alertContent;
+                if (device.platform == "Android") {
+                    alertContent = event.alert;
+                } else {
+                    alertContent = event.aps.alert;
+                }
+                alert("open Notification:" + alertContent);
+            } catch (exception) {
+                console.log("JPushPlugin:onOpenNotification" + exception);
+            }
+        };
 
-        .go-button img {
-            width: 100%;
-            outline: none;
-            border: 0;
-        }
+        var onReceiveNotification = function(event) {
+            try {
+                var alertContent;
+                if (device.platform == "Android") {
+                    alertContent = event.alert;
+                } else {
+                    alertContent = event.aps.alert;
+                }
+                $("#notificationResult").html(alertContent);
+            } catch (exception) {
+                console.log(exception)
+            }
+        };
 
-        .hide {
-            display: none;
-        }
+        var onReceiveMessage = function(event) {
+            try {
+                var message;
+                if (device.platform == "Android") {
+                    message = event.message;
+                } else {
+                    message = event.content;
+                }
+                $("#messageResult").html(message);
+            } catch (exception) {
+                console.log("JPushPlugin:onReceiveMessage-->" + exception);
+            }
+        };
 
-        .owl-theme .owl-dots .owl-dot span {
-            background: #bfbfbf;
-        }
+        var initiateUI = function() {
+            try {
+                window.plugins.jPushPlugin.init();
+                window.setTimeout(getRegistrationID, 1000);
+                if (device.platform != "Android") {
+                    window.plugins.jPushPlugin.setDebugModeFromIos();
+                    window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
+                } else {
+                    window.plugins.jPushPlugin.setDebugMode(true);
+                    window.plugins.jPushPlugin.setStatisticsOpen(true);
+                }
+            } catch (exception) {
+                console.log(exception);
+            }
+            $("#setTagWithAliasButton").click(function(ev) {
+                try {
+                    var tag1 = $("#tagText1").attr("value");
+                    var tag2 = $("#tagText2").attr("value");
+                    var tag3 = $("#tagText3").attr("value");
+                    var alias = $("#aliasText").attr("value");
+                    var tags = [];
 
-        .owl-theme .owl-dots .owl-dot.active span {
-            background: #f8913b;
-        }
+                    if (tag1 != "") {
+                        tags.push(tag1);
+                    }
+                    if (tag2 != "") {
+                        tags.push(tag2);
+                    }
+                    if (tag3 != "") {
+                        tags.push(tag3);
+                    }
+                    window.plugins.jPushPlugin.setTagsWithAlias(tags, alias);
+                } catch (exception) {
+                    console.log(exception);
+                }
+            })
+        };
 
-    </style>
+        document.addEventListener("jpush.setTagsWithAlias", onTagsWithAlias, false);
+        document.addEventListener("deviceready", onDeviceReady, false);
+        document.addEventListener("jpush.openNotification", onOpenNotification, false);
+        document.addEventListener("jpush.receiveNotification", onReceiveNotification, false);
+        document.addEventListener("jpush.receiveMessage", onReceiveMessage, false);
+    </script>
 </head>
 
 <body>
-    <!-- <div class="app">
-        <h1>Hello 点点有钱</h1>
-        <div id="deviceready" class="blink">
-            <p class="event listening">Connecting to Device</p>
-            <p class="event received">Device is Ready</p>
+    <div data-role="page" id="page">
+        <div data-role="content">
+            <form>
+                <div class="ui-body ui-body-b">
+                    <div data-role="fieldcontain">
+                        <center>
+                            <h3>JPushPlugin Example</h3>
+                        </center>
+                        <span name="alias" id="alias"></span>
+                        <hr/>
+                        <label>RegistrationID: </label>
+                        <label id="registrationId">null</label>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label>Tags: </label>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="text" id="tagText1" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" id="tagText2" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" id="tagText3" />
+                                </td>
+                            </tr>
+                        </table>
+                        <label>Alias: </label>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="text" id="aliasText" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <input type="button" id="setTagWithAliasButton"
+                            value="Add tag and alias" />
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label id="tagAliasPrompt">设置tag/alias结果:</label>
+                        <label id="tagAliasResult">null</label>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label id="notificationPrompt">接受的通知内容:</label>
+                        <label id="notificationResult">null</label>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label id="messagePrompt">接受的自定义消息:</label>
+                        <label id="messageResult">null</label>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div>
-            <button id='btnShare'>Share</button>
-        </div>
-    </div> -->
-
-<div class="owl-carousel owl-theme">
-    <img class="item" src="img/1.png" alt="">
-    <img class="item" src="img/2.png" alt="">
-    <img class="item" src="img/3.png" alt="">
-    <img class="item" src="img/4.png" alt="">
-</div>
-<a class="go-button hide" href="javascript:void(0)">
-    <img src="img/go.png" alt="">
-</a>
-
-
-    <script type="text/javascript" src="cordova.js"></script>
-    <!--
-    <script type="text/javascript" src="js/index.js"></script>
-    -->
-    <script type="text/javascript">
-         // app.initialize();
-        // alert(navigator.userAgent);
-        var store = {
-        localStoreSupport: function () {
-            try {
-                return 'localStorage' in window && window['localStorage'] !== null;
-            } catch (e) {
-                return false;
-            }
-        },
-        set: function (name, value, days) {
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                var expires = "; expires=" + date.toGMTString();
-            }
-            else {
-                var expires = "";
-            }
-            if (this.localStoreSupport()) {
-                localStorage.setItem(name, value);
-            }
-            else {
-                document.cookie = name + "=" + value + expires + "; path=/";
-            }
-        },
-        get: function (name) {
-            if (this.localStoreSupport()) {
-                var ret = localStorage.getItem(name);
-                //console.log(typeof ret);
-                switch (ret) {
-                    case 'true':
-                        return true;
-                    case 'false':
-                        return false;
-                    default:
-                        return ret;
-                }
-            }
-            else {
-                var nameEQ = name + "=";
-                var ca = document.cookie.split(';');
-                for (var i = 0; i < ca.length; i++) {
-                    var c = ca[i];
-                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                    if (c.indexOf(nameEQ) == 0) {
-                        ret = c.substring(nameEQ.length, c.length);
-                        switch (ret) {
-                            case 'true':
-                                return true;
-                            case 'false':
-                                return false;
-                            default:
-                                return ret;
-                        }
-                    }
-                }
-                return null;
-            }
-        },
-        del: function (name) {
-            if (this.localStoreSupport()) {
-                localStorage.removeItem(name);
-            }
-            else {
-                this.set(name, "", -1);
-            }
-        }
-    };
-
-    (function() {
-        var visitedKey = 'visited';
-        var isVisited = store.get(visitedKey);
-        if (isVisited) {
-            // alert(visitedKey + ' go to new page 啦');
-            gotoDDYQ();
-            return;
-        }
-
-        store.set(visitedKey, true, 1024);
-    })();
-
-    $(function () {
-        var $owl = $('.owl-carousel');
-        $owl.owlCarousel({
-            items: 1,
-            center: true,
-//            autoWidth: true,
-            dots: true,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 3
-                },
-                1000: {
-                    items: 5
-                }
-            }
-
-        });
-        var $goButton = $('.go-button');
-        $owl.on('changed.owl.carousel', function(event) {
-            var page = event.page;
-            if (page && page.index === page.count - 1) { // last one, animate the button
-                setTimeout(function() {
-//                    alert('Hello min');
-                    $goButton.removeClass('hide').addClass('bounceInUp animated');
-                }, 150);
-                return;
-            }
-
-            $goButton.removeClass('bounceInUp animated').addClass('hide');
-            // else hide it
-        });
-
-        $goButton.on('click', function() {
-            gotoDDYQ();
-        })
-    })
-
-    function gotoDDYQ() {
-        var url = 'https://ddyq888.com/'
-        // var url = 'http://192.168.1.61:8080'
-        // var url = 'http://ad-web-app-test.ibanquan.com/'
-        window.location = url;
-    }
-    </script>
+    </div>
 </body>
 
 </html>

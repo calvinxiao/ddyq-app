@@ -66,6 +66,10 @@
         },
         "cordova-plugin-x-socialsharing": {
             "PACKAGE_NAME": "com.yeedian.app"
+        },
+        "jpush-phonegap-plugin": {
+            "API_KEY": "c8664a33d8ef0c6f4a2cccf4",
+            "PACKAGE_NAME": "com.yeedian.app"
         }
     },
     "dependent_plugins": {

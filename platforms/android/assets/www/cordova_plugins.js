@@ -525,6 +525,14 @@ module.exports = [
         "clobbers": [
             "window.plugins.socialsharing"
         ]
+    },
+    {
+        "file": "plugins/jpush-phonegap-plugin/www/JPushPlugin.js",
+        "id": "jpush-phonegap-plugin.JPushPlugin",
+        "pluginId": "jpush-phonegap-plugin",
+        "clobbers": [
+            "JPush"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -551,7 +559,8 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-vibration": "2.1.2",
     "cordova-plugin-whitelist": "1.2.2",
-    "cordova-plugin-x-socialsharing": "5.1.3"
+    "cordova-plugin-x-socialsharing": "5.1.3",
+    "jpush-phonegap-plugin": "3.0.2"
 }
 // BOTTOM OF METADATA
 });
