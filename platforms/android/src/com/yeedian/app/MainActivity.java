@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com2.yeedian.app;
+package com.yeedian.app;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
