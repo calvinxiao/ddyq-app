@@ -618,6 +618,14 @@ module.exports = [
         "clobbers": [
             "JPush"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-clipboard/www/client.js",
+        "id": "cordova-plugin-clipboard.client",
+        "pluginId": "cordova-plugin-clipboard",
+        "clobbers": [
+            "community.clipboard"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -645,7 +653,8 @@ module.exports.metadata =
     "cordova-plugin-vibration": "2.1.2",
     "cordova-plugin-whitelist": "1.2.2",
     "cordova-plugin-x-socialsharing": "5.1.3",
-    "jpush-phonegap-plugin": "3.0.2"
+    "jpush-phonegap-plugin": "3.0.2",
+    "cordova-plugin-clipboard": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

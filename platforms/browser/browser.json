@@ -91,6 +91,9 @@
         "jpush-phonegap-plugin": {
             "API_KEY": "c8664a33d8ef0c6f4a2cccf4",
             "PACKAGE_NAME": "com.yeedian.app"
+        },
+        "cordova-plugin-clipboard": {
+            "PACKAGE_NAME": "com.yeedian.app2"
         }
     },
     "dependent_plugins": {},
@@ -713,6 +716,14 @@
             "clobbers": [
                 "JPush"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-clipboard/www/client.js",
+            "id": "cordova-plugin-clipboard.client",
+            "pluginId": "cordova-plugin-clipboard",
+            "clobbers": [
+                "community.clipboard"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -738,6 +749,7 @@
         "cordova-plugin-vibration": "2.1.2",
         "cordova-plugin-whitelist": "1.2.2",
         "cordova-plugin-x-socialsharing": "5.1.3",
-        "jpush-phonegap-plugin": "3.0.2"
+        "jpush-phonegap-plugin": "3.0.2",
+        "cordova-plugin-clipboard": "1.0.0"
     }
 }

@@ -185,5 +185,13 @@
         "variables": {
             "API_KEY": "c8664a33d8ef0c6f4a2cccf4"
         }
+    },
+    "cordova-plugin-clipboard": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-clipboard"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
